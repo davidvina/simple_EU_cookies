@@ -1,8 +1,6 @@
 name = simple EU cookies
-description = An example outlining how a module can define blocks.
-dependencies[] = block
+description = A module to show cookies law advert.
 package = Cookies EU Law
-;version = BACKDROP_VERSION
 backdrop = 1.x
 
 
