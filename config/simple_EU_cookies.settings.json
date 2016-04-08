@@ -1,0 +1,11 @@
+{
+    "_config_name": "simple_EU_cookies.settings",
+    "privacy_police_url": "aviso-legal",
+    "message": "We use cookies to track usage and preferences",
+    "accept_text": "I Understand",
+    "expire_days": "90",
+    "decline_function": 0,
+    "decline_text": "Disable Cookies",
+    "position_fixed": 1,
+    "custom_css": 1
+}

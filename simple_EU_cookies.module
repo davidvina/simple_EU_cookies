@@ -1,0 +1,106 @@
+<?php
+/**
+ * @file
+ * Module file for block_example.
+ */
+
+/**
+ * @defgroup block_example Example: Block
+ * @ingroup examples
+ * @{
+ * Demonstrates code creation of blocks.
+ *
+ * This is an example outlining how a module can define blocks that can be
+ * displayed on various pages of a site, or how to alter blocks provided by
+ * other modules.
+ */
+
+/**
+ * Implements hook_menu().
+ *
+ * Provides a default page to explain what this module does.
+ */
+function simple_EU_cookies_menu() {
+
+  $items = array();
+
+ 
+  //configuration page
+    $items['admin/config/system/eu_cookies'] = array(
+    'title' => 'Administration Eu cookies',
+    'description' => 'Page for admin Eu Cookies',
+    'page callback' => 'backdrop_get_form',
+    //    'page callback' => 'drupal_get_form',
+    'page arguments' => array('simple_EU_cookies_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'simple_EU_cookies.admin.inc'
+    //'type' => MENU_NORMAL_ITEM,
+   );
+
+
+  return $items;
+}
+
+
+
+/**
+ * Implements hook_page_build(&$page).
+ */
+
+
+function simple_EU_cookies_preprocess_page(&$page){
+
+  global $base_url;
+
+
+  // only show cookie law if user is not logged
+  if(!user_is_logged_in()){
+    simple_EU_cookies_get_top_bar();
+  } 
+
+}
+
+
+
+function simple_EU_cookies_get_top_bar(){
+
+  //  http://www.primebox.co.uk/projects/jquery-cookiebar/
+
+  //  cogemos datos de config file
+  //  "privacy_police_url": "aviso-legal",
+  //  "message": "We use cookies to track usage and preferences",
+  //  "accept_text": "I Understand",
+  //  "expire_days": "90",
+  //  "decline_function": 0,
+  //  "decline_text": "Disable Cookies",
+  //  "position_fixed": 1,
+  //  "custom_css": 1
+  $datos = config_get('simple_EU_cookies.settings');
+
+  global $base_url;
+  $datos['privacy_police_url'] = $base_url.'/'.$datos['privacy_police_url'];
+
+  // inciamos el calculo del dominio
+  $datos['domain'] = $base_url;
+
+  // pasar variable a javascript
+  backdrop_add_js(
+    array( 'simple_EU_cookies' => $datos,),
+    'setting'
+  );
+  
+  // show only in non authentification users and non admin pages
+
+  // add css jquery.cookiebar
+  // si $datos['custom_css'] es 1
+  if($datos['custom_css'] == 0){
+      backdrop_add_css(backdrop_get_path('module', 'simple_EU_cookies') .'/jquery.cookiebar/jquery.cookiebar.css');
+  }
+
+
+  // add jquery.cookiebar
+  backdrop_add_js(backdrop_get_path('module', 'simple_EU_cookies') .'/jquery.cookiebar/jquery.cookiebar.js');
+
+  // añadir javascript
+  backdrop_add_js(backdrop_get_path('module', 'simple_EU_cookies') . '/js/simple_EU_cookies.js');
+}

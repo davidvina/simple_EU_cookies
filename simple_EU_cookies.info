@@ -1,0 +1,10 @@
+name = simple EU cookies
+description = An example outlining how a module can define blocks.
+dependencies[] = block
+package = Cookies EU Law
+;version = BACKDROP_VERSION
+backdrop = 1.x
+
+
+; url admin
+configure = admin/config/system/eu_cookies
