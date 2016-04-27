@@ -7,12 +7,12 @@
 /**
  * Implements hook_uninstall().
  *
- * @ingroup block_example
  */
 
-/*
 function simple_EU_cookies_uninstall() {
-    $config = config('simple_EU_cookies.settings');
+	/*
+	$config = config('simple_EU_cookies.settings');
     $config->set('path_advice', 'Some example content.');
     $config->save();
-}*/
+    */
+}

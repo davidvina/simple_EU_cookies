@@ -2,8 +2,6 @@
 
   Backdrop.behaviors.simple_EU_cookies = {
     attach: function (context, settings) {
-//    	var texto = settings.simple_EU_cookies.text + settings.simple_EU_cookies.text2;
-    	//alert(texto);
 
     	  //  cogemos datos de config file
 		  //  "privacy_police_url": "aviso-legal",
@@ -15,24 +13,12 @@
 		  //  "position_fixed": 1,
 		  //  "custom_css": 1
 
-
-
 		var message = settings.simple_EU_cookies.message;
 
 		var accept_text = settings.simple_EU_cookies.accept_text;
 
 		var expire_days = settings.simple_EU_cookies.expire_days;
 
-		/*
-		var decline_function = settings.simple_EU_cookies.decline_function;
-		if(decline_function == 0){
-			decline_function = false;
-		} else {
-			decline_function = true;
-		}
-
-		var decline_text = settings.simple_EU_cookies.decline_text;
-		*/
 
 		var privacy_police_button = settings.simple_EU_cookies.privacy_police_button;
 		if(privacy_police_button == 0){

@@ -1,18 +1,7 @@
 <?php
 /**
  * @file
- * Module file for block_example.
- */
-
-/**
- * @defgroup block_example Example: Block
- * @ingroup examples
- * @{
- * Demonstrates code creation of blocks.
- *
- * This is an example outlining how a module can define blocks that can be
- * displayed on various pages of a site, or how to alter blocks provided by
- * other modules.
+ * Module file for simple_EU_cookies
  */
 
 /**
@@ -51,7 +40,6 @@ function simple_EU_cookies_menu() {
 function simple_EU_cookies_preprocess_page(&$page){
 
   global $base_url;
-
 
   // only show cookie law if user is not logged
   if(!user_is_logged_in()){
@@ -103,4 +91,16 @@ function simple_EU_cookies_get_top_bar(){
 
   // añadir javascript
   backdrop_add_js(backdrop_get_path('module', 'simple_EU_cookies') . '/js/simple_EU_cookies.js');
+}
+
+
+/**
+ * Implements hook_config_info().
+ */
+function simple_EU_cookies_config_info() {
+  $prefixes['simple_EU_cookies.settings'] = array(
+    'label' => t('Simple EU cookies settings'),
+    'group' => t('Simple EU cookies'),
+  );
+  return $prefixes;
 }
