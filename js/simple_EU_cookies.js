@@ -3,19 +3,16 @@
   Backdrop.behaviors.simple_EU_cookies = {
     attach: function (context, settings) {
 
-    	  //  cogemos datos de config file
-		  //  "privacy_police_url": "aviso-legal",
-		  //  "message": "We use cookies to track usage and preferences",
-		  //  "accept_text": "I Understand",
-		  //  "expire_days": "90",
-		  //  "decline_function": 0,
-		  //  "decline_text": "Disable Cookies",
-		  //  "position_fixed": 1,
-		  //  "custom_css": 1
 
-		var message = settings.simple_EU_cookies.message;
 
-		var accept_text = settings.simple_EU_cookies.accept_text;
+
+
+    // get languages browser
+    var lang = $('html').attr('lang');
+
+		var message = settings.simple_EU_cookies[lang+"_message"];
+
+		var accept_text = settings.simple_EU_cookies[lang+"_accept_text"];
 
 		var expire_days = settings.simple_EU_cookies.expire_days;
 
@@ -28,7 +25,7 @@
 		}
 
 		var privacy_police_url = settings.simple_EU_cookies.privacy_police_url;
-		var privacy_police_text = settings.simple_EU_cookies.privacy_police_text;	
+		var privacy_police_text = settings.simple_EU_cookies.privacy_police_text;
 
 		var position_fixed = settings.simple_EU_cookies.position_fixed;
 		if(position_fixed == 0){
@@ -37,20 +34,23 @@
 			position_fixed = true;
 		}
 
-		
+
     	$.cookieBar({
-			message: message,
-			acceptText: accept_text,
-			//declineButton: decline_function,
-			//declineText: decline_text,
-			expireDays: expire_days,
-			policyButton: privacy_police_button,
-			policyText: privacy_police_text,
-			policyURL: privacy_police_url,
-			fixed: true,
-			bottom: true,
-			zindex: '10000',
-			forceShow: true,
+  			message: message,
+  			acceptText: accept_text,
+  			//declineButton: decline_function,
+  			//declineText: decline_text,
+  			expireDays: expire_days,
+  			policyButton: privacy_police_button,
+  			policyText: privacy_police_text,
+  			policyURL: privacy_police_url,
+  			fixed: position_fixed,
+  			bottom: true,
+  			zindex: '10000',
+  			forceShow: false,
+        // acceptOnContinue: true,
+        // acceptOnScroll: true,
+        // acceptAnyClick: true,
 		});
 
     }

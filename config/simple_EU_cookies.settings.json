@@ -1,8 +1,8 @@
 {
     "_config_name": "simple_EU_cookies.settings",
     "privacy_police_url": "aviso-legal",
-    "message": "We use cookies to track usage and preferences",
-    "accept_text": "I Understand",
+    "message": "Esta web utiliza 'cookies' propias y de terceros para ofrecerle una mejor experiencia y servicio. Al navegar o utilizar nuestro servicio el usuario acepta el uso que hacemos de las cookies.",
+    "accept_text": "Entiendo",
     "expire_days": "90",
     "decline_function": 0,
     "decline_text": "Disable Cookies",

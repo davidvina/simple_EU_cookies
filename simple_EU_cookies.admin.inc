@@ -10,22 +10,38 @@ function simple_EU_cookies_admin_form(){
   	// accedemos al archivo de configuracion donde guardamos los datos de configuracion
   	$config = config('simple_EU_cookies.settings');
 
+  // loop througth languages
+  $languages = language_list('enabled');
 
-	$form['message'] = array(
-		'#type' => 'textfield',
-		'#title' =>  t('Message cookie law'),
-		'#description' => t('Enter the text to show on the cookie law bar.'),
-		'#default_value' => $config->get('message'),
-		'#required' => TRUE,
-	);
 
-	$form['accept_text'] = array(
-		'#type' => 'textfield',
-		'#title' =>  t('Accept Text'),
-		//'#description' => t('Enter the text to show on the cookie law bar.'),
-		'#default_value' => $config->get('accept_text'),
-		'#required' => TRUE,
-	);
+  foreach ($languages as $langCode => $langObject) {
+
+    $form[$langCode.'_info'] = array(
+      '#markup' => "<h3>".t('Messages for')." ".$langObject->name." ".t('language')."</h3>",
+    );
+
+    if (!$messageTextValue = $config->get($langCode.'_message')) {
+      $messageTextValue = $config->get('message');
+    }
+
+    $form[$langCode.'_message'] = array(
+      '#type' => 'textarea',
+      '#title' =>  $langObject->name.": ".t('Message cookie law'),
+      '#default_value' => $messageTextValue,
+      '#required' => TRUE,
+    );
+
+    if (!$acceptTextValue = $config->get($langCode.'_accept_text')) {
+      $acceptTextValue = $config->get('accept_text');
+    }
+
+    $form[$langCode.'_accept_text'] = array(
+      '#type' => 'textfield',
+      '#title' =>  $langObject->name.": ".t('Accept Text'),
+      '#default_value' => $acceptTextValue,
+      '#required' => TRUE,
+    );
+  }
 
 	$form['privacy_police_button'] = array(
 		'#type' => 'checkbox',
@@ -34,6 +50,9 @@ function simple_EU_cookies_admin_form(){
 		'#default_value' => $config->get('privacy_police_button'),
 		//'#required' => TRUE,
 	);
+
+
+
 
 	$form['privacy_police_url'] = array(
 		'#type' => 'textfield',
@@ -60,6 +79,7 @@ function simple_EU_cookies_admin_form(){
 			),
 		),
 	);
+
 
 	$form['expire_days'] = array(
 		'#type' => 'textfield',
@@ -164,15 +184,24 @@ function simple_EU_cookies_admin_form_submit($form, $form_state){
 	//hdcvi_products_importar_info();
 	$config = config('simple_EU_cookies.settings');
 
-	$config->set('message', $form_state['values']['message']);
-	$config->set('accept_text', $form_state['values']['accept_text']);
+  $languages = language_list('enabled');
+  foreach ($languages as $langCode => $langObject) {
+
+    $config->set($langCode.'_message', $form_state['values'][$langCode.'_message']);
+    $config->set($langCode.'_accept_text', $form_state['values'][$langCode.'_accept_text']);
+
+  }
+
+
+  // $config->set('message', $form_state['values']['message']);
+	// $config->set('accept_text', $form_state['values']['accept_text']);
 
 
 	$config->set('privacy_police_button', $form_state['values']['privacy_police_button']);
 	$config->set('privacy_police_url', $form_state['values']['privacy_police_url']);
 	$config->set('privacy_police_text', $form_state['values']['privacy_police_text']);
 
-	
+
 	$config->set('expire_days', $form_state['values']['expire_days']);
 	//$config->set('decline_function', $form_state['values']['decline_function']);
 	//$config->set('decline_text', $form_state['values']['decline_text']);
@@ -183,7 +212,3 @@ function simple_EU_cookies_admin_form_submit($form, $form_state){
 	$config->save();
 
 }
-
-
-
-

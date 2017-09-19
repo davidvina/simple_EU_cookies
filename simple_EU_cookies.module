@@ -13,7 +13,7 @@ function simple_EU_cookies_menu() {
 
   $items = array();
 
- 
+
   //configuration page
     $items['admin/config/system/eu_cookies'] = array(
     'title' => 'Administration Eu cookies',
@@ -39,12 +39,12 @@ function simple_EU_cookies_menu() {
 
 function simple_EU_cookies_preprocess_page(&$page){
 
-  global $base_url;
+  //global $base_url;
 
   // only show cookie law if user is not logged
   if(!user_is_logged_in()){
     simple_EU_cookies_get_top_bar();
-  } 
+  }
 
 }
 
@@ -66,17 +66,18 @@ function simple_EU_cookies_get_top_bar(){
   $datos = config_get('simple_EU_cookies.settings');
 
   global $base_url;
-  $datos['privacy_police_url'] = $base_url.'/'.$datos['privacy_police_url'];
+  //$datos['privacy_police_url'] = $base_url.'/'.$datos['privacy_police_url'];
 
   // inciamos el calculo del dominio
   $datos['domain'] = $base_url;
+  //dpm($datos['domain']);
 
   // pasar variable a javascript
   backdrop_add_js(
     array( 'simple_EU_cookies' => $datos,),
     'setting'
   );
-  
+
   // show only in non authentification users and non admin pages
 
   // add css jquery.cookiebar
@@ -87,10 +88,35 @@ function simple_EU_cookies_get_top_bar(){
 
 
   // add jquery.cookiebar
-  backdrop_add_js(backdrop_get_path('module', 'simple_EU_cookies') .'/jquery.cookiebar/jquery.cookiebar.js');
+  backdrop_add_js(
+    backdrop_get_path('module', 'simple_EU_cookies') .'/jquery.cookiebar/jquery.cookiebar.js',
+    array(
+      'type' => 'file',
+      'scope' => 'footer'
+    ));
 
   // añadir javascript
-  backdrop_add_js(backdrop_get_path('module', 'simple_EU_cookies') . '/js/simple_EU_cookies.js');
+  backdrop_add_js(
+    backdrop_get_path('module', 'simple_EU_cookies') . '/js/simple_EU_cookies.js',
+    array(
+      'type' => 'file',
+      'scope' => 'footer'
+    )
+  );
+
+  //
+  // backdrop_add_js(
+  //   'jQuery(document).ready(function () {
+  //     $.cookieBar({
+  //       //  forceShow: true,
+  //     });
+  //   });',
+  //   array(
+  //     'type' => 'inline',
+  //     'scope' => 'footer'
+  //   )
+  // );
+
 }
 
 
